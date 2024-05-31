@@ -8,10 +8,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Container from "../components/UI/Container";
+
 import { COLORS } from "../components/constraint";
 import { globalStyles } from "../styles/global";
 import { Fontisto } from "@expo/vector-icons";
+import HomeRoutes from "../routes/HomeRoutes";
+import { useNavigation } from "@react-navigation/native";
 
 const Categories = ["Feature", "Series", "Films", "Original"];
 const Tags = ["Popular Today", "Marvel", "Star War", "Fans Choise"];
@@ -22,7 +24,7 @@ const Home = () => {
   const handlePress = (category) => {
     setSelectedCategory(category);
   };
-
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.VERYDARK} />
@@ -63,7 +65,15 @@ const Home = () => {
             {Categories.map((item, index) => {
               const isSelected = item === selectedCategory;
               return (
-                <TouchableOpacity key={index} onPress={() => handlePress(item)}>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    handlePress(item);
+                    {
+                      console.log(item);
+                    }
+                  }}
+                >
                   <View
                     style={[styles.Menu, isSelected && styles.selectedMenu]}
                   >
@@ -83,7 +93,27 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
-      <Container>{/* Add your content here */}</Container>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          paddingTop: 20,
+          backgroundColor: COLORS.DARK,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {Tags.map((tag, index) => {
+            return (
+              <TouchableOpacity key={index} style={styles.tagContainer}>
+                <Text style={styles.tagText}>{tag}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      </View>
+      {/* content container */}
+      <View style={{ flex: 1 }}>
+        <HomeRoutes />
+      </View>
     </View>
   );
 };
@@ -127,6 +157,19 @@ const styles = StyleSheet.create({
   },
   selectedMenuText: {
     color: "gold",
+  },
+  tagContainer: {
+    borderWidth: 1,
+    borderColor: COLORS.GRAY,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 20,
+  },
+  tagText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
+    opacity: 0.7,
   },
 });
 
