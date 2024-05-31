@@ -6,15 +6,80 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { COLORS } from "../components/constraint";
 import { globalStyles } from "../styles/global";
 import { LinearGradient } from "expo-linear-gradient";
-import ButtonRoutes from "../routes/ButtonRoutes";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../Auth/Firebase";
 
 const SignIn = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  // Basic email validation regex
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validForm = () => {
+    let valid = true;
+
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Email provided is invalid ");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!password.trim()) {
+      setPasswordError("Password is invalid");
+      valid = false;
+    } else if (password.length < 8) {
+      setPasswordError("Password must be over 8 chars long ");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    return valid;
+  };
+
+  const handleLogin = async () => {
+    if (validForm() === true) {
+      try {
+        const response = await signInWithEmailAndPassword(
+          FIREBASE_AUTH,
+          email,
+          password
+        );
+        Alert.alert(
+          `Welcome ${response.user.email}`,
+          "You're successufuly logged in!",
+          [
+            {
+              text: "Continue",
+              onPress: () => navigation.navigate("HomeRoutes"),
+            },
+          ]
+        );
+      } catch (error) {
+        console.log(error);
+        Alert.alert("Error", "Invalid-credential", [
+          { text: "OK", onPress: () => console.log("alert closed") },
+        ]);
+      }
+    }
+  };
   return (
     <ImageBackground
       style={styles.background}
@@ -73,7 +138,13 @@ const SignIn = ({ navigation }) => {
                 marginTop: 10,
                 backgroundColor: "#26282C",
               }}
+              value={email}
+              error={!!emailError}
+              onChangeText={(e) => setEmail(e)}
             />
+            {emailError ? (
+              <Text style={{ color: "crimson" }}>{emailError}</Text>
+            ) : null}
             <TextInput
               label="Password"
               secureTextEntry={!toggle}
@@ -89,7 +160,13 @@ const SignIn = ({ navigation }) => {
               }
               placeholderTextColor="white"
               style={{ marginTop: 20, backgroundColor: "#26282C" }}
+              value={password}
+              onChangeText={(p) => setPassword(p)}
+              error={!!passwordError}
             />
+            {passwordError ? (
+              <Text style={{ color: "crimson" }}>{passwordError}</Text>
+            ) : null}
             <Text
               style={{
                 textAlign: "right",
@@ -103,7 +180,10 @@ const SignIn = ({ navigation }) => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              onPress={() => navigation.navigate("ButtonRoutes")}
+              onPress={() => {
+                handleLogin();
+              }}
+              //   onPress={() => navigation.navigate("ButtonRoutes")}
               style={globalStyles.btn}
             >
               Login
