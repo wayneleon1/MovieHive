@@ -2,14 +2,14 @@ import { View } from "react-native";
 import React from "react";
 import { COLORS } from "../constraint";
 
-const Container = ({ bgColor, children }) => {
+const Container = ({ bgColor, children, paddingTop, paddingBottom }) => {
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: bgColor || COLORS.DARK,
-        paddingTop: 30,
-        paddingBottom: 20,
+        paddingTop: paddingTop || 30,
+        paddingBottom: paddingBottom || 20,
         paddingHorizontal: 16,
       }}
     >

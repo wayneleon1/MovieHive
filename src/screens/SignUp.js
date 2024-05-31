@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import Container from "../components/UI/Container";
 import { globalStyles } from "../styles/global";
 import { COLORS } from "../components/constraint";
@@ -10,6 +17,7 @@ const SignUp = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
   return (
     <Container>
+      <StatusBar barStyle="light-content" backgroundColor="#26282C" />
       <View style={styles.container}>
         <View>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>

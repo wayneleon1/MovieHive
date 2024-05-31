@@ -19,6 +19,7 @@ export default function ButtonRoutes() {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: COLORS.VERYDARK,
+          borderColor: COLORS.VERYDARK,
           height: 70,
         },
         tabBarIcon: ({ focused, color, size }) => {
