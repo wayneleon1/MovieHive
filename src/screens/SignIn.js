@@ -11,6 +11,7 @@ import { TextInput, Button } from "react-native-paper";
 import { COLORS } from "../components/constraint";
 import { globalStyles } from "../styles/global";
 import { LinearGradient } from "expo-linear-gradient";
+import ButtonRoutes from "../routes/ButtonRoutes";
 
 const SignIn = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
@@ -102,7 +103,7 @@ const SignIn = ({ navigation }) => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              onPress={() => navigation.navigate("SignIn")}
+              onPress={() => navigation.navigate("ButtonRoutes")}
               style={globalStyles.btn}
             >
               Login
