@@ -31,7 +31,7 @@ const Welcome = ({ navigation }) => {
           }}
         >
           <Text style={globalStyles.titleText}>
-            Enjoy your favourite movie evertwhere
+            Enjoy your favourite movie everywhere
           </Text>
           <Text
             style={{
