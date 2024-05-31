@@ -1,13 +1,14 @@
 import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import React from "react";
 import { COLORS } from "../components/constraint";
+import { globalStyles } from "../styles/global";
 import { Button } from "react-native-paper";
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.background}
-      source={require("../../assets/images/joker.jpg")}
+      source={require("../../assets/images/joker2.jpeg")}
       imageStyle={styles.image}
     >
       <View style={styles.opacity}></View>
@@ -29,7 +30,7 @@ const Welcome = () => {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.Heading}>
+          <Text style={globalStyles.titleText}>
             Enjoy your favourite movie evertwhere
           </Text>
           <Text
@@ -51,8 +52,8 @@ const Welcome = () => {
             mode="contained"
             buttonColor={COLORS.PRIMARY}
             textColor={COLORS.DARK}
-            onPress={() => console.log("Pressed")}
-            style={{ borderRadius: 6 }}
+            onPress={() => navigation.navigate("SignIn")}
+            style={globalStyles.btn}
           >
             Get Started
           </Button>
@@ -75,11 +76,6 @@ const styles = StyleSheet.create({
   image: {
     transform: [{ scale: 1 }],
     resizeMode: "cover",
-  },
-  Heading: {
-    fontSize: 38,
-    fontWeight: "bold",
-    color: "white",
   },
 });
 
