@@ -68,7 +68,7 @@ const SignIn = ({ navigation }) => {
           [
             {
               text: "Continue",
-              onPress: () => navigation.navigate("HomeRoutes"),
+              onPress: () => navigation.navigate("ButtonRoutes"),
             },
           ]
         );
