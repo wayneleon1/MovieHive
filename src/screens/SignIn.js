@@ -180,10 +180,10 @@ const SignIn = ({ navigation }) => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              onPress={() => {
-                handleLogin();
-              }}
-              //   onPress={() => navigation.navigate("ButtonRoutes")}
+              // onPress={() => {
+              //   handleLogin();
+              // }}
+              onPress={() => navigation.navigate("ButtonRoutes")}
               style={globalStyles.btn}
             >
               Login

@@ -1,15 +1,8 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import Container from "../components/UI/Container";
 import { globalStyles } from "../styles/global";
-import { COLORS } from "../components/constraint";
+import MovieCard from "../components/UI/MovieCard";
 
 const Featured = () => {
   return (
@@ -31,15 +24,7 @@ const Featured = () => {
             <Text style={globalStyles.paragraph}>View More</Text>
           </View>
           <ScrollView horizontal>
-            <TouchableOpacity style={styles.movieCard}>
-              <Image
-                source={require("../../assets/images/justice.jpeg")}
-                style={styles.movieImage}
-              />
-              <View style={styles.movieRate}>
-                <Text style={styles.textRate}>8.8</Text>
-              </View>
-            </TouchableOpacity>
+            <MovieCard />
           </ScrollView>
         </View>
 
@@ -56,15 +41,7 @@ const Featured = () => {
             <Text style={globalStyles.paragraph}>View More</Text>
           </View>
           <ScrollView horizontal>
-            <TouchableOpacity style={styles.movieCardVerticla}>
-              <Image
-                source={require("../../assets/images/justice.jpeg")}
-                style={styles.movieImage}
-              />
-              <View style={styles.movieRate}>
-                <Text style={styles.textRate}>8.8</Text>
-              </View>
-            </TouchableOpacity>
+            <MovieCard isVerticaly={true} />
           </ScrollView>
         </View>
 
@@ -80,17 +57,7 @@ const Featured = () => {
             <Text style={globalStyles.subTitleText}>Trends on Movies Hive</Text>
             <Text style={globalStyles.paragraph}>View More</Text>
           </View>
-          <ScrollView horizontal>
-            <TouchableOpacity style={styles.movieCard}>
-              <Image
-                source={require("../../assets/images/justice.jpeg")}
-                style={styles.movieImage}
-              />
-              <View style={styles.movieRate}>
-                <Text style={styles.textRate}>8.8</Text>
-              </View>
-            </TouchableOpacity>
-          </ScrollView>
+          <MovieCard />
         </View>
         {/* Made for you */}
         <View>
@@ -105,15 +72,7 @@ const Featured = () => {
             <Text style={globalStyles.paragraph}>View More</Text>
           </View>
           <ScrollView horizontal>
-            <TouchableOpacity style={styles.movieCard}>
-              <Image
-                source={require("../../assets/images/justice.jpeg")}
-                style={styles.movieImage}
-              />
-              <View style={styles.movieRate}>
-                <Text style={styles.textRate}>8.8</Text>
-              </View>
-            </TouchableOpacity>
+            <MovieCard />
           </ScrollView>
         </View>
       </ScrollView>
@@ -122,37 +81,6 @@ const Featured = () => {
 };
 
 const styles = StyleSheet.create({
-  movieCard: {
-    width: 280,
-    height: 150,
-    borderRadius: 5,
-    overflow: "hidden",
-    position: "relative",
-    marginTop: 15,
-  },
-  movieCardVerticla: {
-    width: 180,
-    height: 200,
-    borderRadius: 5,
-    overflow: "hidden",
-    position: "relative",
-    marginTop: 15,
-  },
-  movieImage: {
-    width: "100%",
-    height: "100%",
-  },
-  movieRate: {
-    backgroundColor: COLORS.PRIMARY,
-    position: "absolute",
-    top: 10,
-    right: 10,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-  },
-  textRate: {
-    fontWeight: "700",
-  },
   scrollViewContent: {
     gap: 30,
   },
