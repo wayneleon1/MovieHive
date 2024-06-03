@@ -15,7 +15,7 @@ import { Fontisto } from "@expo/vector-icons";
 import HomeRoutes from "../routes/HomeRoutes";
 import { useNavigation } from "@react-navigation/native";
 
-const Categories = ["Feature", "Series", "Films", "Original"];
+const Categories = ["Featured", "Series", "Films", "Original"];
 const Tags = ["Popular Today", "Marvel", "Star War", "Fans Choise"];
 
 const Home = () => {
@@ -71,6 +71,7 @@ const Home = () => {
                     handlePress(item);
                     {
                       console.log(item);
+                      navigation.navigate(item);
                     }
                   }}
                 >

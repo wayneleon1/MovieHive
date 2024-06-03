@@ -42,7 +42,7 @@ export default function ButtonRoutes() {
               iconName = "circle";
               break;
           }
-          const iconSize = focused ? size + 10 : size + 8;
+          const iconSize = focused ? size + 8 : size + 2;
           return <Icon name={iconName} size={iconSize} color={color} />;
         },
       })}

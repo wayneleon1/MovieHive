@@ -2,17 +2,20 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { COLORS } from "../constraint";
 
-const MovieCard = ({ isVerticaly, rate, image }) => {
+const MovieCard = ({ isVerticaly, rate, image, onPress }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={isVerticaly === true ? styles.movieCardVerticla : styles.movieCard}
     >
       <Image
-        source={require("../../../assets/images/justice.jpeg")}
+        source={{
+          uri: `https://image.tmdb.org/t/p/w500${image}`,
+        }}
         style={styles.movieImage}
       />
       <View style={styles.movieRate}>
-        <Text style={styles.textRate}>8.8</Text>
+        <Text style={styles.textRate}>{rate}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
   },
   movieCardVerticla: {
     width: 180,
-    height: 200,
+    height: 240,
     borderRadius: 5,
     overflow: "hidden",
     position: "relative",
@@ -38,6 +41,8 @@ const styles = StyleSheet.create({
   movieImage: {
     width: "100%",
     height: "100%",
+    verticalAlign: "middle",
+    resizeMode: "cover",
   },
   movieRate: {
     backgroundColor: COLORS.PRIMARY,
