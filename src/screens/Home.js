@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,17 +14,45 @@ import { globalStyles } from "../styles/global";
 import { Fontisto } from "@expo/vector-icons";
 import HomeRoutes from "../routes/HomeRoutes";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const Categories = ["Featured", "Series", "Films", "Original"];
 const Tags = ["Popular Today", "Marvel", "Star War", "Fans Choise"];
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(Categories[0]);
+  const [genres, setGenres] = useState([]);
+  const navigation = useNavigation();
 
+  // Handling pressable Menu
   const handlePress = (category) => {
     setSelectedCategory(category);
   };
-  const navigation = useNavigation();
+
+  // Handling fetch genres
+  const handleFetch = async () => {
+    await axios({
+      method: "GET",
+      url: "https://api.themoviedb.org/3/genre/movie/list?language=en",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MmRkNWVkYmExZmY1ZTRhMDAxODNjMWQ5NjFkNjQ2NCIsInN1YiI6IjY2NTc1ODcwNjQ1M2ViYjliNTBjOGE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yqucD4WyPgMRTzaBAddltKw_MDy_20HcGUf0j4Tbtt8",
+      },
+    })
+      .then((response) => {
+        const data = response.data.genres;
+        setGenres(data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.VERYDARK} />
@@ -102,13 +130,14 @@ const Home = () => {
         }}
       >
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {Tags.map((tag, index) => {
-            return (
-              <TouchableOpacity key={index} style={styles.tagContainer}>
-                <Text style={styles.tagText}>{tag}</Text>
-              </TouchableOpacity>
-            );
-          })}
+          {genres &&
+            genres.map((genre) => {
+              return (
+                <TouchableOpacity key={genre.id} style={styles.tagContainer}>
+                  <Text style={styles.tagText}>{genre.name}</Text>
+                </TouchableOpacity>
+              );
+            })}
         </ScrollView>
       </View>
       {/* content container */}

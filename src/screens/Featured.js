@@ -86,7 +86,7 @@ const Featured = () => {
           </ScrollView>
         </View>
 
-        {/* Popular Movies */}
+        {/* Tv Series  */}
         <View>
           <View
             style={{
@@ -116,6 +116,8 @@ const Featured = () => {
                       console.log(item);
                     }}
                     key={item.id}
+                    title={item.original_name}
+                    shortDesc={item.overview}
                     image={item.backdrop_path}
                     rate={item.vote_average}
                   />
@@ -141,15 +143,19 @@ const Featured = () => {
             contentContainerStyle={styles.scrollHorizontalViewContent}
           >
             {trendingError && (
-              <Text style={{ color: "white" }}>{trendingError}</Text>
+              <Text style={globalStyles.error}>{trendingError}</Text>
             )}
-            {trendingPending && <Text>Loading...</Text>}
+            {trendingPending && (
+              <Text style={globalStyles.loading}>Loading...</Text>
+            )}
             {trendingData &&
               trendingData.map((item) => {
                 return (
                   <MovieCard
                     isVerticaly={true}
                     key={item.id}
+                    title={item.title}
+                    shortDesc={item.overview}
                     image={item.backdrop_path}
                     rate={item.vote_average}
                   />
@@ -158,7 +164,7 @@ const Featured = () => {
           </ScrollView>
         </View>
 
-        {/* Made for you */}
+        {/* Upcoming */}
         <View>
           <View
             style={{
