@@ -4,15 +4,45 @@ import {
   ScrollView,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "../components/UI/Container";
 import { globalStyles } from "../styles/global";
 import MovieCard from "../components/UI/MovieCard";
 import useFetch from "../components/usefetch";
 import { COLORS } from "../components/constraint";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const Featured = () => {
+  const navigation = useNavigation();
+  
+  // Handling fetch genres
+  const [genres, setGenres] = useState([]);
+  const handleFetch = async () => {
+    await axios({
+      method: "GET",
+      url: "https://api.themoviedb.org/3/genre/movie/list?language=en",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MmRkNWVkYmExZmY1ZTRhMDAxODNjMWQ5NjFkNjQ2NCIsInN1YiI6IjY2NTc1ODcwNjQ1M2ViYjliNTBjOGE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yqucD4WyPgMRTzaBAddltKw_MDy_20HcGUf0j4Tbtt8",
+      },
+    })
+      .then((response) => {
+        const data = response.data.genres;
+        setGenres(data);
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, []);
+
   // New Release
   const {
     data: nowPlayingData,
@@ -24,9 +54,9 @@ const Featured = () => {
 
   //  TV Series
   const {
-    data: popularData,
-    isPending: popularPending,
-    error: popularError,
+    data: seriesData,
+    isPending: seriesPending,
+    error: seriesError,
   } = useFetch(
     "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1"
   );
@@ -49,7 +79,23 @@ const Featured = () => {
     "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
   );
   return (
-    <Container paddingBottom={10}>
+    <Container paddingBottom={10} paddingTop={10}>
+      <View
+        style={{
+          marginBottom: 10,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {genres &&
+            genres.map((genre) => {
+              return (
+                <TouchableOpacity key={genre.id} style={styles.tagContainer}>
+                  <Text style={styles.tagText}>{genre.name}</Text>
+                </TouchableOpacity>
+              );
+            })}
+        </ScrollView>
+      </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
@@ -81,7 +127,7 @@ const Featured = () => {
                 return (
                   <MovieCard
                     onPress={() => {
-                      console.log(item);
+                      navigation.navigate("Slug", item);
                     }}
                     isVerticaly={true}
                     key={item.id}
@@ -109,18 +155,18 @@ const Featured = () => {
             horizontal
             contentContainerStyle={styles.scrollHorizontalViewContent}
           >
-            {popularError && (
-              <Text style={globalStyles.error}>{popularError}</Text>
+            {seriesError && (
+              <Text style={globalStyles.error}>{seriesError}</Text>
             )}
-            {popularPending && (
+            {seriesPending && (
               <ActivityIndicator size="large" color={COLORS.PRIMARY} />
             )}
-            {popularData &&
-              popularData.slice(0, 20).map((item) => {
+            {seriesData &&
+              seriesData.slice(0, 20).map((item) => {
                 return (
                   <MovieCard
                     onPress={() => {
-                      console.log(item);
+                      navigation.navigate("Slug", item);
                     }}
                     key={item.id}
                     title={item.original_name}
@@ -159,6 +205,9 @@ const Featured = () => {
               trendingData.map((item) => {
                 return (
                   <MovieCard
+                    onPress={() => {
+                      navigation.navigate("Slug", item);
+                    }}
                     isVerticaly={true}
                     key={item.id}
                     title={item.title}
@@ -198,7 +247,7 @@ const Featured = () => {
                 return (
                   <MovieCard
                     onPress={() => {
-                      console.log(item);
+                      navigation.navigate("Slug", item);
                     }}
                     isVerticaly={true}
                     key={item.id}
@@ -215,6 +264,19 @@ const Featured = () => {
 };
 
 const styles = StyleSheet.create({
+  tagContainer: {
+    borderWidth: 1,
+    borderColor: COLORS.GRAY,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 20,
+  },
+  tagText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
+    opacity: 0.7,
+  },
   scrollHorizontalViewContent: {
     gap: 15,
   },

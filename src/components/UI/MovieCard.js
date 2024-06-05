@@ -5,9 +5,11 @@ import { globalStyles } from "../../styles/global";
 
 const MovieCard = ({ isVerticaly, rate, image, onPress, title, shortDesc }) => {
   return (
-    <TouchableOpacity style={{ flexDirection: "column", gap: 10 }}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ flexDirection: "column", gap: 10 }}
+    >
       <View
-        onPress={onPress}
         style={
           isVerticaly === true ? styles.movieCardVerticla : styles.movieCard
         }

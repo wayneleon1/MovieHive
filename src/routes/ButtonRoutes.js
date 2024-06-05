@@ -1,11 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
 import Explore from "../screens/Explore";
 import MyList from "../screens/MyList";
 import More from "../screens/More";
 import Icon from "react-native-vector-icons/AntDesign";
 import { COLORS } from "../components/constraint";
+import HomeRoutes from "./HomeRoutes";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ export default function ButtonRoutes() {
           let iconName;
 
           switch (route.name) {
-            case "Home":
+            case "HomeRoutes":
               iconName = focused ? "home" : "home";
               break;
             case "Explore":
@@ -47,7 +47,7 @@ export default function ButtonRoutes() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="HomeRoutes" component={HomeRoutes} />
       <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="MyList" component={MyList} />
       <Tab.Screen name="More" component={More} />

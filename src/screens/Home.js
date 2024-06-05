@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,46 +12,19 @@ import {
 import { COLORS } from "../components/constraint";
 import { globalStyles } from "../styles/global";
 import { Fontisto } from "@expo/vector-icons";
-import HomeRoutes from "../routes/HomeRoutes";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import MenuRoutes from "../routes/MenuRoutes";
 
 const Categories = ["Featured", "Series", "Films", "Original"];
-const Tags = ["Popular Today", "Marvel", "Star War", "Fans Choise"];
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(Categories[0]);
-  const [genres, setGenres] = useState([]);
   const navigation = useNavigation();
 
   // Handling pressable Menu
   const handlePress = (category) => {
     setSelectedCategory(category);
   };
-
-  // Handling fetch genres
-  const handleFetch = async () => {
-    await axios({
-      method: "GET",
-      url: "https://api.themoviedb.org/3/genre/movie/list?language=en",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MmRkNWVkYmExZmY1ZTRhMDAxODNjMWQ5NjFkNjQ2NCIsInN1YiI6IjY2NTc1ODcwNjQ1M2ViYjliNTBjOGE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yqucD4WyPgMRTzaBAddltKw_MDy_20HcGUf0j4Tbtt8",
-      },
-    })
-      .then((response) => {
-        const data = response.data.genres;
-        setGenres(data);
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
-  };
-
-  useEffect(() => {
-    handleFetch();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -98,7 +71,6 @@ const Home = () => {
                   onPress={() => {
                     handlePress(item);
                     {
-                      console.log(item);
                       navigation.navigate(item);
                     }
                   }}
@@ -122,27 +94,9 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
-      <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 20,
-          backgroundColor: COLORS.DARK,
-        }}
-      >
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {genres &&
-            genres.map((genre) => {
-              return (
-                <TouchableOpacity key={genre.id} style={styles.tagContainer}>
-                  <Text style={styles.tagText}>{genre.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
-        </ScrollView>
-      </View>
       {/* content container */}
       <View style={{ flex: 1 }}>
-        <HomeRoutes />
+        <MenuRoutes />
       </View>
     </View>
   );
@@ -187,19 +141,6 @@ const styles = StyleSheet.create({
   },
   selectedMenuText: {
     color: "gold",
-  },
-  tagContainer: {
-    borderWidth: 1,
-    borderColor: COLORS.GRAY,
-    borderRadius: 5,
-    padding: 10,
-    marginRight: 20,
-  },
-  tagText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "500",
-    opacity: 0.7,
   },
 });
 
