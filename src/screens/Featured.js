@@ -1,9 +1,16 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import Container from "../components/UI/Container";
 import { globalStyles } from "../styles/global";
 import MovieCard from "../components/UI/MovieCard";
 import useFetch from "../components/usefetch";
+import { COLORS } from "../components/constraint";
 
 const Featured = () => {
   // New Release
@@ -67,7 +74,7 @@ const Featured = () => {
               <Text style={globalStyles.error}>{nowPlayingError}</Text>
             )}
             {nowPlayingPending && (
-              <Text style={globalStyles.loading}>Loading...</Text>
+              <ActivityIndicator size="large" color={COLORS.PRIMARY} />
             )}
             {nowPlayingData &&
               nowPlayingData.slice(0, 20).map((item) => {
@@ -106,7 +113,7 @@ const Featured = () => {
               <Text style={globalStyles.error}>{popularError}</Text>
             )}
             {popularPending && (
-              <Text style={globalStyles.loading}>Loading...</Text>
+              <ActivityIndicator size="large" color={COLORS.PRIMARY} />
             )}
             {popularData &&
               popularData.slice(0, 20).map((item) => {
@@ -146,7 +153,7 @@ const Featured = () => {
               <Text style={globalStyles.error}>{trendingError}</Text>
             )}
             {trendingPending && (
-              <Text style={globalStyles.loading}>Loading...</Text>
+              <ActivityIndicator size="large" color={COLORS.PRIMARY} />
             )}
             {trendingData &&
               trendingData.map((item) => {
@@ -184,7 +191,7 @@ const Featured = () => {
               <Text style={globalStyles.error}>{upComingError}</Text>
             )}
             {upComingPending && (
-              <Text style={globalStyles.loading}>Loading...</Text>
+              <ActivityIndicator size="large" color={COLORS.PRIMARY} />
             )}
             {upComingData &&
               upComingData.slice(0, 20).map((item) => {
