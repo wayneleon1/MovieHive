@@ -21,7 +21,7 @@ import axios from "axios";
 const Slug = ({ route }) => {
   const navigation = useNavigation();
   const routes = route.params;
-  const movieID = routes.id;
+  let movieID = routes.id;
   // console.log(movieID);
 
   // Handling get single movie by ID
@@ -99,7 +99,7 @@ const Slug = ({ route }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={styles.movieTitle}>{movie.original_title}</Text>
+            <Text style={styles.movieTitle}>{movie.title}</Text>
             <Fontisto name="favorite" size={20} color={COLORS.GRAY} />
           </View>
           <View>
@@ -130,12 +130,7 @@ const Slug = ({ route }) => {
           <Text style={styles.movieTitle}>Storyline</Text>
           <Text style={styles.paragraph}>{movie.overview}</Text>
         </View>
-        <View>
-          <Text style={styles.movieTitle}>Cast</Text>
-          <Text style={styles.paragraph}>
-            Paul Walker, Vin Diez, The Rock, Chriss Evans, WillSmith
-          </Text>
-        </View>
+
         <View>
           <Text style={styles.movieTitle}>Status</Text>
           <Text style={styles.paragraph}>{movie.status}</Text>
@@ -158,7 +153,8 @@ const Slug = ({ route }) => {
                 return (
                   <MovieCard
                     onPress={() => {
-                      navigation.navigate("Slug", item);
+                      movieID = item.id;
+                      handleFetch();
                     }}
                     isVerticaly={true}
                     key={item.id}

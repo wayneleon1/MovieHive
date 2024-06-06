@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const Featured = () => {
   const navigation = useNavigation();
-  
+
   // Handling fetch genres
   const [genres, setGenres] = useState([]);
   const handleFetch = async () => {
@@ -89,7 +89,13 @@ const Featured = () => {
           {genres &&
             genres.map((genre) => {
               return (
-                <TouchableOpacity key={genre.id} style={styles.tagContainer}>
+                <TouchableOpacity
+                  key={genre.id}
+                  style={styles.tagContainer}
+                  onPress={() => {
+                    navigation.navigate("GetByGenre", genre);
+                  }}
+                >
                   <Text style={styles.tagText}>{genre.name}</Text>
                 </TouchableOpacity>
               );
