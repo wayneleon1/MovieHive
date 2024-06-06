@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import fetch from "node-fetch";
 
-const useFecth = (url) => {
+const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -36,4 +36,4 @@ const useFecth = (url) => {
   return { data, isPending, error };
 };
 
-export default useFecth;
+export default useFetch;
