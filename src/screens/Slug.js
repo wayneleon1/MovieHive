@@ -29,7 +29,7 @@ const Slug = ({ route }) => {
   const handleFetch = async () => {
     await axios({
       method: "GET",
-      url: `https://api.themoviedb.org/3/movie/${movieID}?language=en-US`,
+      url: `https://api.themoviedb.org/3/movie/${movieID}?append_to_response=videoslanguage=en-US`,
       headers: {
         accept: "application/json",
         Authorization:

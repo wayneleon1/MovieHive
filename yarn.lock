@@ -5931,6 +5931,13 @@ react-native-paper@^5.12.3:
     color "^3.1.2"
     use-latest-callback "^0.1.5"
 
+react-native-push-notification-popup@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification-popup/-/react-native-push-notification-popup-1.7.0.tgz#3453df430caaa0c57c209df9dbe797208c423418"
+  integrity sha512-mk4AmqtVs7eRtEaf4s5xjOjbNEkz9V4o8jT1HwprIMGRDmIJoRL9jK8dEQXouCeZjhL41BILzRca1BV/tYE3EA==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-safe-area-context@4.10.1:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.10.1.tgz#29fb27395ff7dfa2fa38788a27226330d73a81cc"
