@@ -14,6 +14,7 @@ import { globalStyles } from "../styles/global";
 import { LinearGradient } from "expo-linear-gradient";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../Auth/Firebase";
+import Container from "../components/UI/Container";
 
 const SignIn = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
@@ -62,6 +63,7 @@ const SignIn = ({ navigation }) => {
           email,
           password
         );
+
         Alert.alert(
           `Welcome ${response.user.email}`,
           "You're successufuly logged in!",
@@ -90,6 +92,7 @@ const SignIn = ({ navigation }) => {
         style={styles.background}
         locations={[0, 0.5]}
       />
+
       <View
         style={{
           width: "100%",
@@ -180,10 +183,10 @@ const SignIn = ({ navigation }) => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              onPress={() => {
-                handleLogin();
-              }}
-              //   onPress={() => navigation.navigate("ButtonRoutes")}
+              // onPress={() => {
+              //   handleLogin();
+              // }}
+              onPress={() => navigation.navigate("ButtonRoutes")}
               style={globalStyles.btn}
             >
               Login

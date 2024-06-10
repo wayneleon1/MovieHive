@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import Container from "../components/UI/Container";
 import { globalStyles } from "../styles/global";
@@ -15,9 +16,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { TextInput, Button } from "react-native-paper";
 import { FIREBASE_AUTH } from "../../Auth/Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import NotificationPopup from "react-native-push-notification-popup";
 
 const SignUp = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,26 +71,43 @@ const SignUp = ({ navigation }) => {
 
   const handleSignIn = async () => {
     if (validForm() === true) {
+      setIsLoading(true);
       try {
         const response = await createUserWithEmailAndPassword(
           FIREBASE_AUTH,
           email,
           password
         );
-        Alert.alert(
-          `Hello ${response.user.email}`,
-          "Account created successfully! Welcome aboard.",
-          [
-            {
-              text: "Continue",
-              onPress: () => navigation.navigate("SignIn"),
-            },
-          ]
-        );
+        setIsLoading(false);
+        // show pop up notification
+        this.popup.show({
+          onPress: function () {
+            console.log("Pressed");
+          },
+          appIconSource: require("../../assets/adaptive-icon1.png"),
+          appTitle: "Hive",
+          timeText: "Now",
+          title: `Hello ${response.user.email}`,
+          body: "Account created successfully! Welcome aboard.",
+          slideOutTime: 8000,
+        });
+        // after signing successfully navigate to signin screen
+        setTimeout(() => {
+          navigation.navigate("SignIn");
+        }, 8000);
       } catch (error) {
-        Alert.alert("OOPS!", "Something went wrong!", [
-          { text: "OK", onPress: () => console.log("alert closed") },
-        ]);
+        setIsLoading(false);
+        this.popup.show({
+          onPress: function () {
+            console.log("Pressed");
+          },
+          appIconSource: require("../../assets/adaptive-icon1.png"),
+          appTitle: "Hive",
+          timeText: "Now",
+          title: "Something went wrong! ⚠️",
+          body: "Email already taken",
+          slideOutTime: 8000,
+        });
       }
     }
   };
@@ -145,14 +165,13 @@ const SignUp = ({ navigation }) => {
               textColor="white"
               outCompleteType="email"
               theme={{ colors: { primary: "#FFD130" } }}
-              placeholderTextColor="white"
               right={<TextInput.Icon icon="email" color="#FDD130" />}
               style={{
                 marginTop: 10,
-                backgroundColor: "#26282C",
+                backgroundColor: "transparent",
               }}
               value={email}
-              error={!!emailError}
+              // error={!!emailError}
               onChangeText={(e) => setEmail(e)}
             />
             {emailError ? (
@@ -175,7 +194,7 @@ const SignUp = ({ navigation }) => {
               style={{ marginTop: 20, backgroundColor: "#26282C" }}
               value={password}
               onChangeText={(p) => setPassword(p)}
-              error={!!passwordError}
+              // error={!!passwordError}
             />
             {passwordError ? (
               <Text style={{ color: "crimson" }}>{passwordError}</Text>
@@ -196,12 +215,12 @@ const SignUp = ({ navigation }) => {
               placeholderTextColor="white"
               style={{
                 marginTop: 20,
-                marginBottom: 30,
+
                 backgroundColor: "#26282C",
               }}
               value={comfrimPassword}
               onChangeText={(e) => setComfrimPassword(e)}
-              error={!!comfrimPasswordError}
+              // error={!!comfrimPasswordError}
             />
             {comfrimPasswordError ? (
               <Text style={{ color: "crimson" }}>{comfrimPasswordError}</Text>
@@ -211,9 +230,13 @@ const SignUp = ({ navigation }) => {
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
               onPress={() => handleSignIn()}
-              style={globalStyles.btn}
+              style={[globalStyles.btn, { marginTop: 30 }]}
             >
-              Sign Up
+              {!isLoading ? (
+                "Sign Up"
+              ) : (
+                <ActivityIndicator size="small" color={COLORS.VERYDARK} />
+              )}
             </Button>
             <Text
               style={{
@@ -277,6 +300,7 @@ const SignUp = ({ navigation }) => {
           </View>
         </View>
       </View>
+      <NotificationPopup ref={(ref) => (this.popup = ref)} />
     </Container>
   );
 };

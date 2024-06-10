@@ -1,8 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Featured from "../screens/Featured";
-import Series from "../screens/Series";
-import Original from "../screens/Original";
-import Films from "../screens/Films";
+import Slug from "../screens/Slug";
+import Home from "../screens/Home";
+import GetByGenre from "../screens/GetByGenre";
 
 const Stack = createStackNavigator();
 
@@ -12,12 +11,11 @@ export default function HomeRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Featured"
+      initialRouteName="Home"
     >
-      <Stack.Screen name="Featured" component={Featured} />
-      <Stack.Screen name="Films" component={Films} />
-      <Stack.Screen name="Series" component={Series} />
-      <Stack.Screen name="Original" component={Original} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Slug" component={Slug} />
+      <Stack.Screen name="GetByGenre" component={GetByGenre} />
     </Stack.Navigator>
   );
 }

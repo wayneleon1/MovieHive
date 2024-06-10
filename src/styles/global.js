@@ -21,4 +21,14 @@ export const globalStyles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 8,
   },
+  loading: {
+    fontSize: 18,
+    color: "white",
+    fontWeight: "600",
+  },
+  error: {
+    fontSize: 18,
+    color: "crimson",
+    fontWeight: "600",
+  },
 });

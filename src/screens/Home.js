@@ -12,19 +12,20 @@ import {
 import { COLORS } from "../components/constraint";
 import { globalStyles } from "../styles/global";
 import { Fontisto } from "@expo/vector-icons";
-import HomeRoutes from "../routes/HomeRoutes";
 import { useNavigation } from "@react-navigation/native";
+import MenuRoutes from "../routes/MenuRoutes";
 
-const Categories = ["Feature", "Series", "Films", "Original"];
-const Tags = ["Popular Today", "Marvel", "Star War", "Fans Choise"];
+const Categories = ["Featured", "Series", "Films", "Original"];
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(Categories[0]);
+  const navigation = useNavigation();
 
+  // Handling pressable Menu
   const handlePress = (category) => {
     setSelectedCategory(category);
   };
-  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.VERYDARK} />
@@ -70,7 +71,7 @@ const Home = () => {
                   onPress={() => {
                     handlePress(item);
                     {
-                      console.log(item);
+                      navigation.navigate(item);
                     }
                   }}
                 >
@@ -93,26 +94,9 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
-      <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 20,
-          backgroundColor: COLORS.DARK,
-        }}
-      >
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {Tags.map((tag, index) => {
-            return (
-              <TouchableOpacity key={index} style={styles.tagContainer}>
-                <Text style={styles.tagText}>{tag}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
       {/* content container */}
       <View style={{ flex: 1 }}>
-        <HomeRoutes />
+        <MenuRoutes />
       </View>
     </View>
   );
@@ -157,19 +141,6 @@ const styles = StyleSheet.create({
   },
   selectedMenuText: {
     color: "gold",
-  },
-  tagContainer: {
-    borderWidth: 1,
-    borderColor: COLORS.GRAY,
-    borderRadius: 5,
-    padding: 10,
-    marginRight: 20,
-  },
-  tagText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "500",
-    opacity: 0.7,
   },
 });
 
