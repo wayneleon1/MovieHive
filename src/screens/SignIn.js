@@ -14,7 +14,8 @@ import { globalStyles } from "../styles/global";
 import { LinearGradient } from "expo-linear-gradient";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../Auth/Firebase";
-import Container from "../components/UI/Container";
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 const SignIn = ({ navigation }) => {
   const [toggle, setToggle] = useState(false);
@@ -64,21 +65,25 @@ const SignIn = ({ navigation }) => {
           password
         );
 
-        Alert.alert(
-          `Welcome ${response.user.email}`,
-          "You're successufuly logged in!",
-          [
-            {
-              text: "Continue",
-              onPress: () => navigation.navigate("ButtonRoutes"),
-            },
-          ]
-        );
+        showMessage({
+          message: "Sign in successfully",
+          type: "success",
+          style: {
+            alignItems: "center",
+          },
+        });
+        setTimeout(() => {
+          navigation.navigate("ButtonRoutes");
+        }, 3000);
       } catch (error) {
         console.log(error);
-        Alert.alert("Error", "Invalid-credential", [
-          { text: "OK", onPress: () => console.log("alert closed") },
-        ]);
+        showMessage({
+          message: "Invalid crediantial",
+          type: "danger",
+          style: {
+            alignItems: "center",
+          },
+        });
       }
     }
   };
@@ -92,7 +97,6 @@ const SignIn = ({ navigation }) => {
         style={styles.background}
         locations={[0, 0.5]}
       />
-
       <View
         style={{
           width: "100%",
@@ -183,10 +187,10 @@ const SignIn = ({ navigation }) => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              // onPress={() => {
-              //   handleLogin();
-              // }}
-              onPress={() => navigation.navigate("ButtonRoutes")}
+              onPress={() => {
+                handleLogin();
+              }}
+              // onPress={() => navigation.navigate("ButtonRoutes")}
               style={globalStyles.btn}
             >
               Login
@@ -223,6 +227,7 @@ const SignIn = ({ navigation }) => {
           </View>
         </View>
       </View>
+      <FlashMessage position="top" />
     </ImageBackground>
   );
 };
