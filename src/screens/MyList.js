@@ -45,9 +45,11 @@ const MyList = () => {
               >
                 Create my own List
               </Text>
-              <Text style={[globalStyles.paragraph, { textAlign: "center" }]}>
-                Let's do something, because i have nice suprise for you
-              </Text>
+              <View style={{ width: "50%" }}>
+                <Text style={[globalStyles.paragraph, { textAlign: "center" }]}>
+                  Let's do something, because i have nice suprise for you
+                </Text>
+              </View>
             </View>
           </View>
           <View>
@@ -55,10 +57,7 @@ const MyList = () => {
               mode="contained"
               buttonColor={COLORS.PRIMARY}
               textColor={COLORS.DARK}
-              onPress={() => {
-                handleLogin();
-              }}
-              // onPress={() => navigation.navigate("ButtonRoutes")}
+              // onPress={() => navigation.navigate("Explore")}
               style={{ borderRadius: 6 }}
             >
               Explore Movie

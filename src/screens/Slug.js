@@ -181,7 +181,7 @@ const Slug = ({ route }) => {
   );
 };
 const styles = StyleSheet.create({
-  imageContainer: { flex: 1, position: "relative" },
+  imageContainer: { flex: 1, position: "relative", overflow: "hidden" },
   image: { width: "100%", height: "100%", resizeMode: "cover" },
   playBtn: {
     position: "absolute",
