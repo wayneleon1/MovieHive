@@ -159,6 +159,7 @@ const Featured = () => {
           </View>
           <ScrollView
             horizontal
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.scrollHorizontalViewContent}
           >
             {seriesError && (
@@ -199,6 +200,7 @@ const Featured = () => {
           </View>
           <ScrollView
             horizontal
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.scrollHorizontalViewContent}
           >
             {trendingError && (
@@ -239,6 +241,7 @@ const Featured = () => {
             <Text style={globalStyles.paragraph}>View More</Text>
           </View>
           <ScrollView
+            showsHorizontalScrollIndicator={false}
             horizontal
             contentContainerStyle={styles.scrollHorizontalViewContent}
           >

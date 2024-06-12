@@ -17,6 +17,9 @@ import { useNavigation } from "@react-navigation/native";
 import MovieCard from "../components/UI/MovieCard";
 import useFetch from "../components/usefetch";
 import axios from "axios";
+import { globalStyles } from "../styles/global";
+
+// import VideoPlayer from "react-native-video-player";
 
 const Slug = ({ route }) => {
   const navigation = useNavigation();
@@ -88,6 +91,14 @@ const Slug = ({ route }) => {
           <TouchableOpacity style={styles.playBtn}>
             <FontAwesome6 name="circle-play" size={42} color={COLORS.PRIMARY} />
           </TouchableOpacity>
+          {/* <VideoPlayer
+            video={{
+              uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            }}
+            videoWidth="100%"
+            videoHeight="100%"
+            thumbnail={{ uri: "https://i.picsum.photos/id/866/1600/900.jpg" }}
+          /> */}
         </View>
         <View
           style={{
@@ -170,7 +181,7 @@ const Slug = ({ route }) => {
   );
 };
 const styles = StyleSheet.create({
-  imageContainer: { flex: 1, position: "relative" },
+  imageContainer: { flex: 1, position: "relative", overflow: "hidden" },
   image: { width: "100%", height: "100%", resizeMode: "cover" },
   playBtn: {
     position: "absolute",
